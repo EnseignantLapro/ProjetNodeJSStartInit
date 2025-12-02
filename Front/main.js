@@ -1,4 +1,11 @@
-fetch("/api/test")
+const token = localStorage.getItem("token");
+
+fetch("/api/test",{
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token
+    }
+  })
     .then(res => res.json())
     .then(data => {
         //affichage du json dans la console
@@ -31,6 +38,11 @@ document.getElementById("MonBouton").addEventListener("click", (e) => {
             let uneDiv = document.getElementById("maDiv1");
             uneDiv.innerHTML = `<p>Message : ${data.message}</p>
                         <p>Token : ${data.token}</p>`;
+
+            if (data.token) {
+                // 👉 On sauvegarde le token en local
+                localStorage.setItem("token", data.token);
+            }
 
         })
         .catch(err => console.error(err));

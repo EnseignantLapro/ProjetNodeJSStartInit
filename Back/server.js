@@ -7,6 +7,25 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = "A mettre dans le .env";
 
 
+//Middleware pour vérifier une token JWT
+// 👉 Middleware pour vérifier le token
+function authMiddleware(req, res, next) {
+  const authHeader = req.headers.authorization || "";
+  // Format attendu : "Bearer TOKEN"
+  const token = authHeader.split(" ")[1];
+  if (!token) {
+    return res.status(401).json({ success: false, message: "Token manquant" });
+  }
+  try {
+    const payload = jwt.verify(token, JWT_SECRET);
+    req.user = payload; // on stocke les infos dans req.user
+    next();
+  } catch (err) {
+    return res.status(401).json({ success: false, message: "Token invalide" });
+  }
+}
+
+
 // Création d'une instance de l'application Express
 const app =  express();
 
@@ -19,10 +38,9 @@ app.get('/', (req, res) => {
 });
 
 // Définition d'une route GET pour '/api/test'
-app.get('/api/test', (req, res) => {
+app.get('/api/test', authMiddleware,(req, res) => {
   res.json({ 
-            message: 'API test réussie !',
-            nombre: 42
+            message: 'Message secret ',
    });      
 });
 
