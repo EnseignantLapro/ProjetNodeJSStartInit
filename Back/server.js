@@ -2,9 +2,14 @@
 //et de gérer les requêtes HTTP
 const express = require('express');
 const path = require("path");
+const jwt = require("jsonwebtoken");
+//création d'une clé secrète pour le JWT
+const JWT_SECRET = "A mettre dans le .env";
+
 
 // Création d'une instance de l'application Express
 const app =  express();
+
 
 app.use(express.static(path.join(__dirname, "..", "Front")));
 
@@ -23,8 +28,11 @@ app.get('/api/test', (req, res) => {
 
 app.post('/api/login', express.json(), (req, res) => {
     const { login, password } = req.body;
-    console.log(`Login reçu : ${login}, Password reçu : ${password}`);      
-    res.json({ message: "Login reçu avec succès" });
+    console.log(`Login reçu : ${login}, Password reçu : ${password}`); 
+    //créeer un token JWT
+    const token = jwt.sign({ login }, JWT_SECRET, { expiresIn: '4h' });
+    console.log(`Token JWT généré : ${token}`); 
+    res.json({ message: "Vous etes connecté", token : token });
 });
 
 //listen attends 2 paramètres : le port et une fonction anonyme callback
