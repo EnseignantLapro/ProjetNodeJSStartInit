@@ -20,8 +20,6 @@ document.getElementById("MonBouton").addEventListener("click", (e) => {
     const login = document.getElementById("login").value;
     const password = document.getElementById("password").value;
 
-    alert(`Login : ${login}\nPassword : ${password}`);
-
     fetch("/api/login", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -32,6 +30,5 @@ document.getElementById("MonBouton").addEventListener("click", (e) => {
      console.log("Réponse API login :", data);
     })
     .catch(err => console.error(err));
-
 
 })
