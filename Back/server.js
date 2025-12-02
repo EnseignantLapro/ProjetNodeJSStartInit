@@ -17,9 +17,7 @@ app.get('/', (req, res) => {
 app.get('/api/test', (req, res) => {
   res.json({ 
             message: 'API test réussie !',
-            toto: 'valeur de toto',
-            nombre: 42,
-            liste: [1, 2, 3, 4, 5]
+            nombre: 42
    });      
 });
 
