@@ -13,6 +13,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, "..", "Front", "index.html"));
 });
 
+// Définition d'une route GET pour '/api/test'
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API test réussie !' });      
+});
+
 //listen attends 2 paramètres : le port et une fonction anonyme callback
 app.listen(3000,   () => {
   console.log('Serveur lancé sur http://localhost:3000');
