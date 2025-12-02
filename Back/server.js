@@ -15,7 +15,12 @@ app.get('/', (req, res) => {
 
 // Définition d'une route GET pour '/api/test'
 app.get('/api/test', (req, res) => {
-  res.json({ message: 'API test réussie !' });      
+  res.json({ 
+            message: 'API test réussie !',
+            toto: 'valeur de toto',
+            nombre: 42,
+            liste: [1, 2, 3, 4, 5]
+   });      
 });
 
 //listen attends 2 paramètres : le port et une fonction anonyme callback
